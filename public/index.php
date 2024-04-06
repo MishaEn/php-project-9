@@ -9,6 +9,9 @@ use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Slim\Views\PhpRenderer;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -16,7 +19,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $containerBuilder = new ContainerBuilder();
 
 if (false) { // Should be set to true in production
-	$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
+    $containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
 }
 
 // Set up settings
@@ -36,8 +39,16 @@ $container = $containerBuilder->build();
 
 // Instantiate the app
 AppFactory::setContainer($container);
+
+
+$container->set('view', function () {
+    return Twig::create(__DIR__ . '/../templates');
+});
+
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
+
+$app->add(TwigMiddleware::createFromContainer($app));
 
 // Register middleware
 $middleware = require __DIR__ . '/../app/middleware.php';

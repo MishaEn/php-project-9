@@ -26,8 +26,10 @@
         "ext-json": "*",
         "monolog/monolog": "^3.5",
         "php-di/php-di": "^7.0",
+        "slim/php-view": "^3.2",
         "slim/psr7": "^1.5",
-        "slim/slim": "^4.10"
+        "slim/slim": "^4.10",
+        "slim/twig-view": "^3.3"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^1.0.0",
