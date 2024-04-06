@@ -1,6 +1,6 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
+    "name": "hexlet/code",
+    "description": "тестовый проект",
     "keywords": [
         "microframework",
         "rest",
