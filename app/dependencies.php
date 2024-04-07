@@ -30,15 +30,19 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        PDO::class => function (ContainerInterface $c) {
-            $settings = $c->get(SettingsInterface::class);
-            $dbSettings = $settings->get('db');
+        PDO::class => function () {
+            $databaseUrl = parse_url($_ENV['DATABASE_URL']);
+            $username = $databaseUrl['user']; // janedoe
+            $password = $databaseUrl['pass']; // mypassword
+            $host = $databaseUrl['host']; // localhost
+            $port = $databaseUrl['port']; // 5432
+            $dbName = ltrim($databaseUrl['path'], '/');
             $pdo = new PDO('pgsql:
-                host=' . $dbSettings['host'] . ';
-                port=' . $dbSettings['port'] . ';
-                dbname=' . $dbSettings['name'] . ';
-                user=' . $dbSettings['user'] . ';
-                password=' . $dbSettings['pass'] . ';');
+                host=' . $host . ';
+                port=' . $port . ';
+                dbname=' . $dbName . ';
+                user=' . $username . ';
+                password=' . $password . ';');
 
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
