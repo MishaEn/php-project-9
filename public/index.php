@@ -40,15 +40,8 @@ $container = $containerBuilder->build();
 // Instantiate the app
 AppFactory::setContainer($container);
 
-
-$container->set('view', function () {
-    return Twig::create(__DIR__ . '/../templates');
-});
-
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
-
-$app->add(TwigMiddleware::createFromContainer($app));
 
 // Register middleware
 $middleware = require __DIR__ . '/../app/middleware.php';

@@ -5,11 +5,18 @@ declare(strict_types=1);
 namespace App\Application\Actions;
 
 use App\Domain\DomainException\DomainRecordNotFoundException;
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Flash\Messages;
+use Slim\Views\Twig;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 abstract class Action
 {
@@ -20,10 +27,16 @@ abstract class Action
     protected Response $response;
 
     protected array $args;
+    private Twig $view;
+    public Messages $flash;
+    public Client $guzzle;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, Twig $view, Messages $flash, Client $guzzle)
     {
         $this->logger = $logger;
+        $this->view = $view;
+        $this->flash = $flash;
+        $this->guzzle = $guzzle;
     }
 
     /**
@@ -88,5 +101,15 @@ abstract class Action
         return $this->response
                     ->withHeader('Content-Type', 'application/json')
                     ->withStatus($payload->getStatusCode());
+    }
+
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
+    protected function respondTemplate(string $template, array $data = []): ResponseInterface
+    {
+        return $this->view->render($this->response, $template, $data);
     }
 }
