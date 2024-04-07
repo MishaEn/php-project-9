@@ -62,7 +62,7 @@ SQL;
 
         $stmt->execute();
 
-        return $this->db->lastInsertId();
+        return (int) $this->db->lastInsertId();
     }
 
     public function addCheck(
