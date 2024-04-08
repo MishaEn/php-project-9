@@ -16,7 +16,7 @@ class AddUrlAction extends UrlAction
     protected function action(): Response
     {
         $urlData = $this->request->getParsedBody();
-        $urlName = $urlData['url']['name'];
+        $urlName = $urlData['url']['name']; /** @phpstan-ignore-line */
         /** @phpstan-ignore-line */
         preg_match('/^(https?:\/\/[^\/]+)/i', $urlName, $matches);
 

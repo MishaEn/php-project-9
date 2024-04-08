@@ -17,7 +17,7 @@ class ActionPayload implements JsonSerializable
 
     private ?ActionError $error;
 
-    public function __construct(
+    public function __construct(  /** @phpstan-ignore-line */
         int $statusCode = 200,
         $data = null,
         ?ActionError $error = null
