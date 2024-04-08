@@ -18,7 +18,7 @@ interface UrlRepository
      * @param int $id
      * @return Url
      */
-    public function findUrlOfId(int $id): Url;
+    public function findUrlOfId(int $id): ?Url;
 
     /**
      * @param string $name
@@ -36,4 +36,5 @@ interface UrlRepository
     ): void;
     public function getLastCheckStatusCode(int $url_id): ?string;
     public function findChecksOfUrlId(int $url_id): array;
+    public function findUrlOfName(string $name): ?Url;
 }

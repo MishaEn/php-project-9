@@ -34,7 +34,7 @@ SQL;
     /**
      * @inheritDoc
      */
-    public function findUrlOfId(int $id): Url
+    public function findUrlOfId(int $id): ?Url
     {
         $sql = /** @lang PostgreSQL */
             <<<SQL
@@ -46,7 +46,7 @@ SQL;
 
         $url = $stmt->fetch();
 
-        return new Url($url['id'], $url['name'], $url['created_at']);
+        return $url ? new Url($url['id'], $url['name'], $url['created_at']) : null;
     }
 
     public function add(string $name, string $created_at): int
@@ -117,5 +117,20 @@ SQL;
         $result = $stmt->fetch();
 
         return $result['status_code'] ?? null;
+    }
+
+    public function findUrlOfName(string $name): ?Url
+    {
+        $sql = /** @lang PostgreSQL */
+            <<<SQL
+            SELECT * FROM urls WHERE name = :name
+SQL;
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":name", $name);
+        $stmt->execute();
+
+        $url = $stmt->fetch();
+
+        return $url ? new Url($url['id'], $url['name'], $url['created_at']) : null;
     }
 }

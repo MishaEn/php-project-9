@@ -31,6 +31,15 @@ return function (ContainerBuilder $containerBuilder) {
             return $logger;
         },
         PDO::class => function () {
+            /*$settings = $c->get(SettingsInterface::class);
+            $dbSettings = $settings->get('db');
+            $pdo = new PDO('pgsql:
+                host=' . $dbSettings['host'] . ';
+                port=' . $dbSettings['port'] . ';
+                dbname=' . $dbSettings['name'] . ';
+                user=' . $dbSettings['user'] . ';
+                password=' . $dbSettings['pass'] . ';');*/
+
             $databaseUrl = parse_url($_ENV['DATABASE_URL']);
             $username = $databaseUrl['user']; // janedoe
             $password = $databaseUrl['pass']; // mypassword
