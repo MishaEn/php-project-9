@@ -19,7 +19,10 @@ class CheckUrlAction extends UrlAction
         $url = $this->urlRepository->findUrlOfId((int) $urlId);
 
         $response = $this->guzzle->request('GET', $url->getName());
-        $document = new Document($url->getName(), true);
+        $body = $response->getBody()->getContents();
+
+        $document = new Document();
+        $document->loadHtml($body);
 
         $this->flash->addMessage('info', 'Страница успешно проверена');
 

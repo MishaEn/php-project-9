@@ -30,7 +30,7 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        PDO::class => function () {
+        PDO::class => function (ContainerInterface $c) {
             /*$settings = $c->get(SettingsInterface::class);
             $dbSettings = $settings->get('db');
             $pdo = new PDO('pgsql:
