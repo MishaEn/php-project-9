@@ -18,8 +18,6 @@ class IndexUrlAction extends UrlAction
      */
     protected function action(): Response
     {
-        dump(4123);
-
         return $this->respondTemplate('index.twig', [
             'message' => $this->flash->getFirstMessage('error')
         ]);

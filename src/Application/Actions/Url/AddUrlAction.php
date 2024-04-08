@@ -15,22 +15,15 @@ class AddUrlAction extends UrlAction
      */
     protected function action(): Response
     {
-        if ($this->flash->getFirstMessage('error') === 'Некорректный URL') {
-            return $this->respondTemplate('index.twig', [
-                'message' => $this->flash->getFirstMessage('error')
-            ]);
-        }
-
         $urlData = $this->request->getParsedBody();
-
         $urlName = $urlData['url']['name'];
 
         preg_match('/^(https?:\/\/[^\/]+)/i', $urlName, $matches);
 
         if (count($matches) === 0) {
-            $this->flash->addMessage('error', 'Некорректный URL');
-
-            return $this->response->withStatus(422);
+            return $this->respondTemplate('index.twig', [
+                'message' => 'Некорректный URL'
+            ], 422);
         }
 
         $findUrl = $this->urlRepository->findUrlOfName($matches[1]);

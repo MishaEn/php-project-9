@@ -108,8 +108,10 @@ abstract class Action
      * @throws RuntimeError
      * @throws LoaderError
      */
-    protected function respondTemplate(string $template, array $data = []): ResponseInterface
+    protected function respondTemplate(string $template, array $data = [], int $statusCode = 200): Response
     {
-        return $this->view->render($this->response, $template, $data);
+        $this->response = $this->view->render($this->response, $template, $data);
+
+        return $this->response->withStatus($statusCode);
     }
 }
