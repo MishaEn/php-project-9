@@ -18,7 +18,14 @@ class ListUrlAction extends UrlAction
      */
     protected function action(): Response
     {
+        if ($this->flash->getFirstMessage('error') === 'Некорректный URL') {
+            return $this->respondTemplate('index.twig', [
+                'message' => $this->flash->getFirstMessage('error')
+            ]);
+        }
+
         $urls = $this->urlRepository->findAll();
+
         foreach ($urls as $key => $url) {
             $urls[$key]['status'] = $this->urlRepository->getLastCheckStatusCode($url['id']);
         }

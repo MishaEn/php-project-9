@@ -21,7 +21,6 @@ return function (App $app) {
 
     $app->get('/', IndexUrlAction::class);
 
-
     $app->group('/urls', function (Group $group) {
         $group->get('', ListUrlAction::class);
         $group->post('', AddUrlAction::class);

@@ -15,8 +15,6 @@ class AddUrlAction extends UrlAction
      */
     protected function action(): Response
     {
-        $result = '';
-
         $urlData = $this->request->getParsedBody();
 
         $urlName = $urlData['url']['name'];
@@ -26,7 +24,7 @@ class AddUrlAction extends UrlAction
         if (count($matches) === 0) {
             $this->flash->addMessage('error', 'Некорректный URL');
 
-            return $this->response->withHeader('Location', "/")->withStatus(302);
+            return $this->response->withHeader('Location', "/urls")->withStatus(302);
         }
 
         $findUrl = $this->urlRepository->findUrlOfName($matches[1]);
