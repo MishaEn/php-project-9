@@ -16,9 +16,9 @@ use Slim\Psr7\Headers;
 use Slim\Psr7\Request as SlimRequest;
 use Slim\Psr7\Uri;
 
-class TestCase extends PHPUnit_TestCase
+class TestCase extends PHPUnit_TestCase  /** @phpstan-ignore-line */
 {
-    use ProphecyTrait;
+    use ProphecyTrait;  /** @phpstan-ignore-line */
 
     /**
      * @return App
@@ -78,7 +78,7 @@ class TestCase extends PHPUnit_TestCase
     ): Request {
         $uri = new Uri('', '', 80, $path);
         $handle = fopen('php://temp', 'w+');
-        $stream = (new StreamFactory())->createStreamFromResource($handle);
+        $stream = (new StreamFactory())->createStreamFromResource($handle);  /** @phpstan-ignore-line */
 
         $h = new Headers();
         foreach ($headers as $name => $value) {

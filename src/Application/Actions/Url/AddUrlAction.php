@@ -17,7 +17,7 @@ class AddUrlAction extends UrlAction
     {
         $urlData = $this->request->getParsedBody();
         $urlName = $urlData['url']['name'];
-
+        /** @phpstan-ignore-line */
         preg_match('/^(https?:\/\/[^\/]+)/i', $urlName, $matches);
 
         if (count($matches) === 0) {

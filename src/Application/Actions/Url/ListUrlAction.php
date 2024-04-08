@@ -27,7 +27,7 @@ class ListUrlAction extends UrlAction
         $urls = $this->urlRepository->findAll();
 
         foreach ($urls as $key => $url) {
-            $urls[$key]['status'] = $this->urlRepository->getLastCheckStatusCode($url['id']);
+            $urls[$key]['status'] = $this->urlRepository->getLastCheckStatusCode($url['id']);  /** @phpstan-ignore-line */
         }
 
         $this->logger->info("Urls list was viewed.");

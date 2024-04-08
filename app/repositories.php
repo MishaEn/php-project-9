@@ -10,7 +10,6 @@ use DI\ContainerBuilder;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        UserRepository::class => \DI\autowire(InMemoryUserRepository::class),
         UrlRepository::class => \DI\autowire(InMemoryUrlRepository::class),
     ]);
 };

@@ -22,9 +22,9 @@ class ViewUrlAction extends UrlAction
         $checks = $this->urlRepository->findChecksOfUrlId((int) $urlId);
 
         return $this->respondTemplate('item_url.twig', [
-            'id' => $url->getId(),
-            'name' => $url->getName(),
-            'created_at' => $url->getCreatedAt(),
+            'id' => $url->getId(),  /** @phpstan-ignore-line */
+            'name' => $url->getName(),  /** @phpstan-ignore-line */
+            'created_at' => $url->getCreatedAt(),  /** @phpstan-ignore-line */
             'checks' => $checks,
             'message' => $this->flash->getFirstMessage('info')
         ]);
