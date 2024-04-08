@@ -32,9 +32,9 @@ class AddUrlAction extends UrlAction
         $findUrl = $this->urlRepository->findUrlOfName($matches[1]);
 
         if ($findUrl !== null) {
-            $this->flash->addMessage('error', 'Страница уже существует');
+            $this->flash->addMessage('info', 'Страница уже существует');
 
-            return $this->response->withHeader('Location', "/")->withStatus(302);
+            return $this->response->withHeader('Location', "/urls/{$findUrl->getId()}")->withStatus(302);
         }
 
         $urlId = $this->urlRepository->add($matches[1], Carbon::now());
