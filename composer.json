@@ -34,7 +34,7 @@
         "slim/php-view": "^3.2",
         "slim/psr7": "^1.5",
         "slim/slim": "^4.10",
-        "slim/twig-view": "^3.3",
+        "slim/twig-view": "^3.4",
         "symfony/var-dumper": "^7.0"
     },
     "require-dev": {
