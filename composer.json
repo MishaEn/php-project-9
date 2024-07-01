@@ -33,7 +33,7 @@
         "slim/flash": "^0.4.0",
         "slim/php-view": "^3.2",
         "slim/psr7": "^1.5",
-        "slim/slim": "^4.10",
+        "slim/slim": "^4.14",
         "slim/twig-view": "^3.3",
         "symfony/var-dumper": "^7.0"
     },
